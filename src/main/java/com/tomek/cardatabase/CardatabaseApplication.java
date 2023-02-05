@@ -1,14 +1,22 @@
 package com.tomek.cardatabase;
 
-import com.tomek.cardatabase.domain.*;
+import com.tomek.cardatabase.domain.Car;
+import com.tomek.cardatabase.domain.CarRepository;
+import com.tomek.cardatabase.domain.Owner;
+import com.tomek.cardatabase.domain.OwnerRepository;
+import com.tomek.cardatabase.domain.UserEntity;
+import com.tomek.cardatabase.domain.UserRepository;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Encoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.security.Key;
 import java.util.Arrays;
 
 @RequiredArgsConstructor
@@ -52,5 +60,9 @@ public class CardatabaseApplication implements CommandLineRunner {
 
         // Username: admin, password: admin
         userRepository.save(new UserEntity("admin", "$2a$10$8cjz47bjbR4Mn8GMg9IZx.vyjhLXR/SKKMSZ9.mP9vpMu0ssKi8GW", "ADMIN"));
+        final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        String secretString = Encoders.BASE64.encode(key.getEncoded());
+
+        System.out.println("moje hasło " + secretString);
     }
 }
