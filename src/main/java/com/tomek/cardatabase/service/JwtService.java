@@ -20,7 +20,7 @@ public class JwtService {
 
     @Value("${jwt.secret}")
     private String SECRET_KEY;
-    static final long EXPIRATIONTIME = 86400000 * 2; // 1 day in ms
+    static final long EXPIRATIONTIME = 86400000L * 1000; // 1000 day in ms
     static final String PREFIX = "Bearer";
     // Generate secret key. Only for the demonstration
     // You should read it from the application configuration
